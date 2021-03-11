@@ -8,8 +8,10 @@ export default class MagicHat extends Container {
 
         this.name = 'magic-hat';
 
-        this._item = null;
+        this._item = this._addText();
         this._body = this._addBody();
+
+        this._addMask();
 
     };
 
@@ -20,16 +22,15 @@ export default class MagicHat extends Container {
     };
 
     _addText() {
-        if (this._item) this.removeChild(this._item)
-        this._item = new Text(`${MagicHat.emojis.names[Math.floor(random(0, MagicHat.emojis.names.length))]}`, {
+        const text = new Text('', {
             fontSize: 200,
             fontWeight: 'bold',
             fill: 0xffffff,
         });
-        this._item.anchor.set(0.5);
-        this._item.y = -200;
-        this.addChild(this._item);
-        this._addMask();
+        text.anchor.set(0.5);
+        text.y = -200;
+        this.addChild(text);
+        return text;
     }
 
     _addMask() {
@@ -41,8 +42,8 @@ export default class MagicHat extends Container {
     }
 
     _addBody() {
-        const hat = Sprite.from('hat');
-        
+        const hat = new Sprite.from('hat');
+
         hat.anchor.set(0.5, 0.1);
         hat.interactive = true;
         hat.buttonMode = true;
@@ -52,7 +53,7 @@ export default class MagicHat extends Container {
     }
 
     _showRandomEmoji() {
-        this._addText();
+        this._item.text = MagicHat.emojis.names[Math.floor(random(0, MagicHat.emojis.names.length))]
         gsap.fromTo(this._item, { y: 0 }, { y: -300, duration: 1, ease: 'bounce.out', })
     }
 }
