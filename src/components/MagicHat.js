@@ -50,6 +50,7 @@ export default class MagicHat extends Container {
         this.addChild(hat);
 
         hat.on('click', () => this._showRandomEmoji());
+        return hat;
     }
 
     _showRandomEmoji() {
